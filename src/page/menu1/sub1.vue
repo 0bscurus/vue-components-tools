@@ -1,4 +1,3 @@
-
 <template>
 <div class="container-box">
   <el-tabs v-model="activeName" @tab-click="handleClick">
