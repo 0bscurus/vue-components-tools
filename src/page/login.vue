@@ -1,5 +1,9 @@
 <template>
   <div class="login-box">
+    <div id="large-header">
+      <canvas id="demo-canvas" style="height: 100%;width: 100%"></canvas>
+    </div>
+
     <div class="login-page-container">
       <el-form
         :model="ruleForm2"
@@ -27,7 +31,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import * as commonApi from "api/common";
+import canvasDemo from '../utils/canvasDemo.js'
 import * as types from "../store/mutation-types";
 export default {
   props: {},
@@ -57,6 +61,9 @@ export default {
       checked: true
     };
   },
+  mounted() {
+    canvasDemo();
+  },
   created() {
     this.ruleForm2.checkPass = "";
     if (localStorage.getItem('userName')) {  // 记住密码操作
@@ -75,6 +82,7 @@ export default {
               userName: this.ruleForm2.account,
               password: this.ruleForm2.checkPass
             };
+
             sessionStorage.setItem("user", JSON.stringify(params)); // session存储用户信息
             this.logining = false;
             this.$router.push({ path: "/menu1/sub1" });  // 去主页
@@ -132,20 +140,29 @@ export default {
   top: 0;
   background-color: $globalBgColor;
 }
+.login-page-container {
+  position: absolute;
+  left: 35%;
+  top: 10px;
+}
 .login-container {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   background-clip: padding-box;
-  margin: 180px auto;
+  margin: 160px auto;
   width: 350px;
   padding: 35px 35px 15px;
   background: #fff;
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 }
-
+#large-header {
+  position: relative;
+  background-image: url('../assets/img/demo-2-bg.jpg');
+  background-position: center bottom;
+}
 label.el-checkbox.remember {
-  margin: 0px 0px 35px 0px;
+  margin: 0 0 35px 0;
 }
 </style>
